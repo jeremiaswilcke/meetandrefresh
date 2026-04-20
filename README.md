@@ -1,36 +1,63 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Meet & Refresh
 
-## Getting Started
+Next.js-Webapp für die jährliche Konferenz „Meet & Refresh" — Jahreskonferenz für christliche Frauen.
 
-First, run the development server:
+## Stack
+
+- **Next.js 16** (App Router, Server Components)
+- **Tailwind CSS v4** mit Stitch-Design-Tokens (Primärgrün `#006948`)
+- **Kanit** (Display + Body) via `next/font`
+- **Material Symbols Outlined** für Icons
+- **Supabase** (Auth + Postgres) für Anmeldungen und Teilnehmer-Portal
+- **Vercel** als Deploy-Target
+
+## Entwicklung
 
 ```bash
+npm install
+cp .env.local.example .env.local        # Keys aus Supabase eintragen
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Seite läuft auf http://localhost:3000.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Datenstruktur
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Alle Event-Inhalte (Termin, Ort, Referentinnen, Programm, Workshops, Preise, Kontakt) liegen zentral in `src/data/event.ts` — **einmal pro Jahr hier aktualisieren**.
 
-## Learn More
+## Routen
 
-To learn more about Next.js, take a look at the following resources:
+| Route | Zweck |
+|-------|-------|
+| `/` | Landing mit Hero, Programm-Preview, Referentinnen, Workshops, Preise, CTA |
+| `/ueber-uns` | Team & Motivation |
+| `/programm` | Vollständiges Programm als Timeline |
+| `/referentinnen` | Alle Referentinnen im Detail |
+| `/galerie` | Fotos der letzten Konferenz |
+| `/kontakt` | Kontaktdaten + Tagungsort |
+| `/buchung` | Öffentliches Anmeldeformular → Supabase |
+| `/zahlung` | Demo-Zahlungsbestätigung |
+| `/login` | Login/Signup (Supabase Auth) |
+| `/portal` | Teilnehmer-Dashboard (geschützt) |
+| `/portal/buchung` | Eigene Buchung einsehen |
+| `/portal/raumplan` | Raumplan im Tagungshaus |
+| `/portal/profil` | Profil-Ansicht |
+| `/impressum`, `/datenschutz` | Rechtliches |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Supabase Setup
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Neues Projekt bei [supabase.com](https://supabase.com) anlegen
+2. SQL-Migration ausführen: `supabase/migrations/0001_initial_schema.sql` im SQL-Editor einfügen und ausführen
+3. Bei Auth-Settings `Email Confirmations` nach Bedarf einstellen
+4. `NEXT_PUBLIC_SUPABASE_URL` und `NEXT_PUBLIC_SUPABASE_ANON_KEY` in `.env.local` eintragen
 
-## Deploy on Vercel
+## Deploy
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Vercel:
+- Repository importieren
+- Env-Vars setzen (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`)
+- Auto-Deploy aus `main`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Design-Tokens
+
+Color palette stammt aus dem Stitch-Design-Package (`Verdant Conservatory`). Primär Tiefgrün, Akzent Mint, Hintergrund Sand. Kanit als einzige Schrift — sowohl Headlines als auch Fließtext.
