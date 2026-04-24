@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
-import type { CSSProperties } from "react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { MaterialIcon } from "@/components/material-icon";
+import { ParallaxQuoteDivider } from "@/components/parallax-quote-divider";
 import { EVENT, PROGRAM, WORKSHOPS, PRICING, SPEAKERS } from "@/data/event";
 
 export default function Home() {
@@ -97,13 +97,6 @@ export default function Home() {
           </div>
         </section>
 
-        <ImageDivider
-          src="/photos/audience-clapping.jpg"
-          quote="Eine Erfahrung fürs Leben, nicht nur für mich, sondern für uns alle!"
-          author="Gerda, 55"
-          position="center 42%"
-        />
-
         {/* === Was erwartet dich === */}
         <section className="floral-field max-w-6xl mx-auto px-6 py-20">
           <div className="grid md:grid-cols-12 gap-10 items-start">
@@ -137,11 +130,11 @@ export default function Home() {
           </div>
         </section>
 
-        <ImageDivider
-          src="/photos/community-highfive.jpg"
-          quote="Ich kam müde an und bin mit neuer Hoffnung nach Hause gefahren."
-          author="Miriam, 38"
-          position="center 48%"
+        <ParallaxQuoteDivider
+          src="/photos/audience-clapping.jpg"
+          quote="Eine Erfahrung fürs Leben, nicht nur für mich, sondern für uns alle!"
+          author="Gerda, 55"
+          position="center 42%"
         />
 
         <section className="max-w-6xl mx-auto px-6 py-12">
@@ -162,13 +155,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-
-        <ImageDivider
-          src="/photos/happy-speaker.jpg"
-          quote="Die Impulse waren klar, nahbar und genau zur richtigen Zeit."
-          author="Anne, 46"
-          position="center 38%"
-        />
 
         {/* === Programm-Preview === */}
         <section className="floral-field max-w-6xl mx-auto px-6 py-20">
@@ -238,6 +224,13 @@ export default function Home() {
             ))}
           </div>
         </section>
+
+        <ParallaxQuoteDivider
+          src="/photos/community-highfive.jpg"
+          quote="Ich kam müde an und bin mit neuer Hoffnung nach Hause gefahren."
+          author="Miriam, 38"
+          position="center 48%"
+        />
 
         {/* === Workshops === */}
         <section className="max-w-6xl mx-auto px-6 py-20">
@@ -324,6 +317,13 @@ export default function Home() {
           </div>
         </section>
 
+        <ParallaxQuoteDivider
+          src="/photos/happy-speaker.jpg"
+          quote="Die Impulse waren klar, nahbar und genau zur richtigen Zeit."
+          author="Anne, 46"
+          position="center 38%"
+        />
+
         {/* === CTA === */}
         <section className="max-w-6xl mx-auto px-6 py-20">
           <div className="relative rounded-[2rem] overflow-hidden bg-gradient-to-br from-primary via-primary-container to-primary-fixed-dim p-10 md:p-16 editorial-shadow">
@@ -376,34 +376,3 @@ const speakerPreviewImages = [
   "/photos/happy-speaker.jpg",
   "/photos/speaker-stage.jpg",
 ];
-
-function ImageDivider({
-  src,
-  quote,
-  author,
-  position = "center",
-}: {
-  src: string;
-  quote: string;
-  author: string;
-  position?: string;
-}) {
-  return (
-    <section
-      className="quote-divider image-divider"
-      style={
-        {
-          "--divider-image": `url(${src})`,
-          "--divider-position": position,
-        } as CSSProperties
-      }
-      aria-label={`Zitat von ${author}`}
-    >
-      <div className="quote-divider__overlay" />
-      <figure className="quote-divider__content">
-        <blockquote>{quote}</blockquote>
-        <figcaption>{author}</figcaption>
-      </figure>
-    </section>
-  );
-}
