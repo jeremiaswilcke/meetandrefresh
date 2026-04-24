@@ -12,13 +12,24 @@ export default function Home() {
 
       <main className="flex-1">
         {/* === Hero === */}
-        <section className="relative overflow-hidden">
-          <div className="absolute inset-0 -z-10 bg-gradient-to-b from-primary-fixed/40 via-background to-background" aria-hidden />
-          <div className="absolute -top-24 -right-24 w-96 h-96 bg-primary-fixed-dim/30 rounded-full blur-3xl -z-10" aria-hidden />
-          <div className="absolute top-40 -left-32 w-80 h-80 bg-secondary-fixed/30 rounded-full blur-3xl -z-10" aria-hidden />
+        <section className="floral-field relative overflow-hidden">
+          <div className="absolute inset-0 -z-10 hero-carousel" aria-hidden>
+            {heroImages.map((image) => (
+              <Image
+                key={image.src}
+                src={image.src}
+                alt=""
+                fill
+                priority={image.priority}
+                className="hero-slide absolute inset-0 object-cover"
+              />
+            ))}
+            <div className="absolute inset-0 bg-gradient-to-r from-background via-background/78 to-background/10" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/35" />
+          </div>
 
-          <div className="max-w-6xl mx-auto px-6 pt-16 pb-24 md:pt-24 md:pb-32 grid md:grid-cols-12 gap-10 items-center">
-            <div className="md:col-span-7 relative z-10">
+          <div className="max-w-6xl mx-auto px-6 min-h-[calc(100vh-84px)] py-16 md:py-24 grid md:grid-cols-12 gap-10 items-center">
+            <div className="md:col-span-7 relative z-10 rounded-[2rem] bg-background/74 p-6 backdrop-blur-md md:p-8">
               <p className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary/10 text-primary text-xs font-semibold tracking-wider uppercase mb-6">
                 <MaterialIcon name="calendar_month" size={14} />
                 {EVENT.dates.display} · {EVENT.location.shortName}
@@ -58,9 +69,9 @@ export default function Home() {
             </div>
 
             <div className="md:col-span-5 relative">
-              <div className="relative aspect-[3/4] rounded-[2rem] overflow-hidden bg-gradient-to-br from-primary via-primary-container to-primary-fixed-dim editorial-shadow">
+              <div className="relative aspect-[3/4] rounded-[2rem] overflow-hidden bg-gradient-to-br from-primary via-primary-container to-primary-fixed-dim editorial-shadow ring-8 ring-white/50">
                 <Image
-                  src="/photos/audience-clapping.jpg"
+                  src="/stock/retreat-women-photo.png"
                   alt="Frauenfreizeit mit warmer Meet & Refresh Atmosphäre"
                   fill
                   priority
@@ -85,8 +96,14 @@ export default function Home() {
           </div>
         </section>
 
+        <ImageDivider
+          src="/photos/community-heart-hands.jpg"
+          label="Gemeinschaft"
+          title="Ein Wochenende, das sich nach echter Begegnung anfühlt."
+        />
+
         {/* === Was erwartet dich === */}
-        <section className="max-w-6xl mx-auto px-6 py-20">
+        <section className="floral-field max-w-6xl mx-auto px-6 py-20">
           <div className="grid md:grid-cols-12 gap-10 items-start">
             <div className="md:col-span-5">
               <p className="text-xs uppercase tracking-widest font-semibold text-primary mb-3">Was erwartet dich</p>
@@ -118,6 +135,12 @@ export default function Home() {
           </div>
         </section>
 
+        <ImageDivider
+          src="/photos/happy-speaker.jpg"
+          label="Impulse"
+          title="Klare Worte, warme Atmosphäre, Raum für Fragen."
+        />
+
         <section className="max-w-6xl mx-auto px-6 py-12">
           <div className="grid gap-4 md:grid-cols-2">
             <div className="relative h-80 overflow-hidden rounded-[2rem] editorial-shadow md:h-[420px]">
@@ -137,8 +160,14 @@ export default function Home() {
           </div>
         </section>
 
+        <ImageDivider
+          src="/stock/worship-photo.png"
+          label="Lobpreis"
+          title="Gemeinsam still werden, singen und neu ausrichten."
+        />
+
         {/* === Programm-Preview === */}
-        <section className="max-w-6xl mx-auto px-6 py-20">
+        <section className="floral-field max-w-6xl mx-auto px-6 py-20">
           <div className="flex items-end justify-between mb-8 flex-wrap gap-4">
             <div>
               <p className="text-xs uppercase tracking-widest font-semibold text-primary mb-3">Programm</p>
@@ -244,16 +273,17 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="pricing-carousel">
             {PRICING.map((t) => (
               <div
                 key={t.slug}
-                className={`rounded-2xl p-7 editorial-shadow ${
+                className={`relative flex min-h-[30rem] flex-col overflow-hidden rounded-2xl p-7 editorial-shadow ${
                   t.featured
                     ? "bg-gradient-to-br from-primary to-primary-container text-on-primary"
                     : "bg-surface-container-lowest text-on-surface"
                 }`}
               >
+                <span className="botanical-accent" aria-hidden />
                 {t.featured && (
                   <p className="inline-block text-[10px] uppercase tracking-widest font-bold bg-on-primary/20 text-on-primary px-3 py-1 rounded-full mb-3">
                     Am beliebtesten
@@ -266,7 +296,7 @@ export default function Home() {
                     gesamt
                   </span>
                 </p>
-                <ul className="mt-5 space-y-2">
+                <ul className="mt-5 flex-1 space-y-2">
                   {t.includes.map((inc, i) => (
                     <li key={i} className="flex gap-2 text-sm">
                       <MaterialIcon name="check" size={18} className={t.featured ? "text-on-primary" : "text-primary"} />
@@ -293,6 +323,7 @@ export default function Home() {
         {/* === CTA === */}
         <section className="max-w-6xl mx-auto px-6 py-20">
           <div className="relative rounded-[2rem] overflow-hidden bg-gradient-to-br from-primary via-primary-container to-primary-fixed-dim p-10 md:p-16 editorial-shadow">
+            <span className="botanical-accent" aria-hidden />
             <div className="absolute inset-0 opacity-10" aria-hidden>
               <Image
                 src="/meetand-logo.png"
@@ -329,8 +360,30 @@ export default function Home() {
   );
 }
 
+const heroImages = [
+  { src: "/stock/retreat-women-photo.png", priority: true },
+  { src: "/photos/audience-clapping.jpg" },
+  { src: "/photos/community-heart-hands.jpg" },
+  { src: "/photos/happy-speaker.jpg" },
+];
+
 const speakerPreviewImages = [
   "/photos/speaker-microphone-grey.jpg",
   "/photos/happy-speaker.jpg",
   "/photos/speaker-stage.jpg",
 ];
+
+function ImageDivider({ src, label, title }: { src: string; label: string; title: string }) {
+  return (
+    <section className="image-divider mx-auto max-w-6xl px-6 py-10">
+      <div className="relative h-72 overflow-hidden rounded-[2rem] editorial-shadow md:h-[28rem]">
+        <Image src={src} alt={title} fill sizes="100vw" className="object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/20 to-transparent" />
+        <div className="absolute bottom-0 left-0 max-w-2xl p-7 text-white md:p-10">
+          <p className="text-xs font-semibold uppercase tracking-widest text-white/75">{label}</p>
+          <h2 className="mt-3 text-3xl font-bold leading-tight md:text-5xl">{title}</h2>
+        </div>
+      </div>
+    </section>
+  );
+}
