@@ -174,13 +174,59 @@ html, body {
 }
 
 .image-divider {
-  animation: divider-parallax both ease-out;
+  animation: divider-reveal both ease-out;
   animation-timeline: view();
-  animation-range: entry -10% cover 60%;
+  animation-range: entry -12% cover 58%;
 }
 
-.image-divider img {
-  transform: scale(1.12);
+.quote-divider {
+  position: relative;
+  min-height: clamp(17rem, 32vw, 25rem);
+  overflow: hidden;
+  isolation: isolate;
+  background-image: var(--divider-image);
+  background-attachment: fixed;
+  background-position: var(--divider-position, center);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.quote-divider__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(90deg, rgba(18, 35, 29, 0.68) 0%, rgba(18, 35, 29, 0.34) 44%, rgba(18, 35, 29, 0.06) 100%),
+    linear-gradient(0deg, rgba(159, 228, 212, 0.16), rgba(179, 148, 230, 0.08));
+}
+
+.quote-divider__content {
+  position: relative;
+  z-index: 2;
+  width: min(100% - 3rem, 72rem);
+  min-height: clamp(17rem, 32vw, 25rem);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(2.5rem, 6vw, 5.75rem) 0;
+  color: #ffffff;
+}
+
+.quote-divider blockquote {
+  max-width: 52rem;
+  font-size: clamp(2.1rem, 4.3vw, 4.8rem);
+  line-height: 1.04;
+  font-weight: 800;
+  text-shadow: 0 0.18em 0.16em rgba(0, 0, 0, 0.38);
+}
+
+.quote-divider figcaption {
+  margin-top: 1rem;
+  font-size: clamp(1.4rem, 2.6vw, 3.4rem);
+  line-height: 1;
+  font-weight: 800;
+  text-shadow: 0 0.18em 0.16em rgba(0, 0, 0, 0.38);
 }
 
 @keyframes hero-fade {
@@ -210,7 +256,7 @@ html, body {
   }
 }
 
-@keyframes divider-parallax {
+@keyframes divider-reveal {
   from {
     opacity: 0.72;
     transform: translateY(42px) scale(0.98);
@@ -218,6 +264,16 @@ html, body {
   to {
     opacity: 1;
     transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 768px) {
+  .quote-divider {
+    background-attachment: scroll;
+  }
+
+  .quote-divider__content {
+    width: min(100% - 2rem, 72rem);
   }
 }
 

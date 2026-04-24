@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { MaterialIcon } from "@/components/material-icon";
@@ -97,9 +98,10 @@ export default function Home() {
         </section>
 
         <ImageDivider
-          src="/photos/community-heart-hands.jpg"
-          label="Gemeinschaft"
-          title="Ein Wochenende, das sich nach echter Begegnung anfühlt."
+          src="/photos/audience-clapping.jpg"
+          quote="Eine Erfahrung fürs Leben, nicht nur für mich, sondern für uns alle!"
+          author="Gerda, 55"
+          position="center 42%"
         />
 
         {/* === Was erwartet dich === */}
@@ -136,9 +138,10 @@ export default function Home() {
         </section>
 
         <ImageDivider
-          src="/photos/happy-speaker.jpg"
-          label="Impulse"
-          title="Klare Worte, warme Atmosphäre, Raum für Fragen."
+          src="/photos/community-highfive.jpg"
+          quote="Ich kam müde an und bin mit neuer Hoffnung nach Hause gefahren."
+          author="Miriam, 38"
+          position="center 48%"
         />
 
         <section className="max-w-6xl mx-auto px-6 py-12">
@@ -161,9 +164,10 @@ export default function Home() {
         </section>
 
         <ImageDivider
-          src="/stock/worship-photo.png"
-          label="Lobpreis"
-          title="Gemeinsam still werden, singen und neu ausrichten."
+          src="/photos/happy-speaker.jpg"
+          quote="Die Impulse waren klar, nahbar und genau zur richtigen Zeit."
+          author="Anne, 46"
+          position="center 38%"
         />
 
         {/* === Programm-Preview === */}
@@ -373,17 +377,33 @@ const speakerPreviewImages = [
   "/photos/speaker-stage.jpg",
 ];
 
-function ImageDivider({ src, label, title }: { src: string; label: string; title: string }) {
+function ImageDivider({
+  src,
+  quote,
+  author,
+  position = "center",
+}: {
+  src: string;
+  quote: string;
+  author: string;
+  position?: string;
+}) {
   return (
-    <section className="image-divider mx-auto max-w-6xl px-6 py-10">
-      <div className="relative h-72 overflow-hidden rounded-[2rem] editorial-shadow md:h-[28rem]">
-        <Image src={src} alt={title} fill sizes="100vw" className="object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/55 via-black/20 to-transparent" />
-        <div className="absolute bottom-0 left-0 max-w-2xl p-7 text-white md:p-10">
-          <p className="text-xs font-semibold uppercase tracking-widest text-white/75">{label}</p>
-          <h2 className="mt-3 text-3xl font-bold leading-tight md:text-5xl">{title}</h2>
-        </div>
-      </div>
+    <section
+      className="quote-divider image-divider"
+      style={
+        {
+          "--divider-image": `url(${src})`,
+          "--divider-position": position,
+        } as CSSProperties
+      }
+      aria-label={`Zitat von ${author}`}
+    >
+      <div className="quote-divider__overlay" />
+      <figure className="quote-divider__content">
+        <blockquote>{quote}</blockquote>
+        <figcaption>{author}</figcaption>
+      </figure>
     </section>
   );
 }
