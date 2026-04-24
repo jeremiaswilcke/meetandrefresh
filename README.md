@@ -58,13 +58,13 @@ Alle Event-Inhalte (Termin, Ort, Referentinnen, Programm, Workshops, Preise, Kon
 1. Neues Projekt bei [supabase.com](https://supabase.com) anlegen
 2. SQL-Migration ausführen: `supabase/migrations/0001_initial_schema.sql` im SQL-Editor einfügen und ausführen
 3. Bei Auth-Settings `Email Confirmations` nach Bedarf einstellen
-4. `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` und `SUPABASE_SERVICE_ROLE_KEY` in `.env.local` eintragen
+4. `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` und `SUPABASE_SERVICE_ROLE_KEY` in `.env.local` eintragen. `NEXT_PUBLIC_SUPABASE_ANON_KEY` funktioniert als Legacy-Name weiterhin.
 
 ## Deploy
 
 Vercel:
 - Repository importieren
-- Env-Vars setzen (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`)
+- Env-Vars setzen (`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`, `SUPABASE_SERVICE_ROLE_KEY`)
 - Auto-Deploy aus `main`
 
 ## Design-Tokens

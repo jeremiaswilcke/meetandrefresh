@@ -1,11 +1,12 @@
 import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
+import { getSupabasePublicKey, getSupabaseUrl } from "./env";
 
 export async function updateSession(request: NextRequest) {
   let response = NextResponse.next({ request });
 
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+  const supabaseUrl = getSupabaseUrl();
+  const supabaseKey = getSupabasePublicKey();
 
   // Wenn Supabase-Env-Vars fehlen (z.B. beim ersten Vercel-Deploy bevor
   // die Secrets gesetzt sind), ueberspringen wir den Session-Refresh —
