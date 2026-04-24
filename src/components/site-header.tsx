@@ -18,7 +18,7 @@ export function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 backdrop-blur-xl bg-background/86 border-b border-outline-variant/40">
-      <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
+      <div className="w-full px-6 py-3 flex items-center justify-between lg:px-10">
         <Link href="/" className="flex items-center" aria-label="Meet & Refresh — Startseite">
           <Logo />
         </Link>
@@ -63,7 +63,7 @@ export function SiteHeader() {
 
       {open && (
         <div className="md:hidden border-t border-outline-variant/30 bg-surface-container-lowest">
-          <div className="px-6 py-4 flex flex-col gap-1">
+          <div className="w-full px-6 py-4 flex flex-col gap-1">
             {NAV.map((item) => (
               <Link
                 key={item.href}

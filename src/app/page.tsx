@@ -185,10 +185,16 @@ export default function Home() {
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
-            {SPEAKERS.map((s) => (
+            {SPEAKERS.map((s, i) => (
               <div key={s.slug} className="bg-surface-container-lowest rounded-2xl overflow-hidden editorial-shadow">
-                <div className="aspect-[4/5] bg-gradient-to-br from-primary-fixed to-primary-fixed-dim flex items-center justify-center">
-                  <MaterialIcon name="person" size={80} className="text-primary/40" filled />
+                <div className="relative aspect-[4/5] bg-gradient-to-br from-primary-fixed to-primary-fixed-dim">
+                  <Image
+                    src={speakerPreviewImages[i % speakerPreviewImages.length]}
+                    alt={`Referentin ${s.name}`}
+                    fill
+                    sizes="(min-width: 768px) 33vw, 100vw"
+                    className="object-cover"
+                  />
                 </div>
                 <div className="p-6">
                   <h3 className="font-semibold text-xl">{s.name}</h3>
@@ -322,3 +328,9 @@ export default function Home() {
     </>
   );
 }
+
+const speakerPreviewImages = [
+  "/photos/speaker-microphone-grey.jpg",
+  "/photos/happy-speaker.jpg",
+  "/photos/speaker-stage.jpg",
+];
