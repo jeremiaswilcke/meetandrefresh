@@ -1,7 +1,7 @@
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { BuchungForm } from "./buchung-form";
-import { EVENT, PRICING, WORKSHOPS } from "@/data/event";
+import { EVENT } from "@/data/event";
 
 export const metadata = { title: "Anmelden" };
 
@@ -11,7 +11,8 @@ export default async function BuchungPage({
   searchParams: Promise<{ paket?: string }>;
 }) {
   const { paket } = await searchParams;
-  const defaultPackage = PRICING.find((p) => p.slug === paket)?.slug ?? "doppelzimmer";
+  const defaultRoom = paket === "einzelzimmer" ? "single" : paket?.startsWith("familienzimmer") ? "multi" : "double_unknown";
+  const defaultRoomVariant = paket === "familienzimmer-4" ? "4" : "3";
 
   return (
     <>
@@ -25,15 +26,14 @@ export default async function BuchungPage({
           <span className="text-primary">dass du dabei bist.</span>
         </h1>
         <p className="text-lg text-on-surface-variant max-w-2xl leading-relaxed">
-          Fülle das Formular aus — wir schicken dir anschließend eine Bestätigungsmail mit allen Details. Zahlung geht im nächsten Schritt.
+          Fülle das Formular aus. Einzel- und Familienzimmer gehen direkt zur Zahlung; Doppelzimmer werden erst nach erfolgreichem Matching zahlungspflichtig.
         </p>
 
         <div className="mt-12">
           <BuchungForm
             eventSlug={EVENT.slug}
-            packages={PRICING.map((p) => ({ slug: p.slug, name: p.name, price: p.price, featured: p.featured ?? false }))}
-            workshops={WORKSHOPS.map((w) => ({ slug: w.slug, title: w.title, round: w.round }))}
-            defaultPackage={defaultPackage}
+            defaultRoom={defaultRoom}
+            defaultRoomVariant={defaultRoomVariant}
           />
         </div>
       </main>

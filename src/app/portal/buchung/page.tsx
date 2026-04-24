@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { MaterialIcon } from "@/components/material-icon";
-import { PRICING, WORKSHOPS } from "@/data/event";
 
 export const metadata = { title: "Meine Buchung" };
 
@@ -37,15 +36,12 @@ export default async function PortalBuchung() {
       ) : (
         <div className="mt-8 space-y-4">
           {registrations!.map((r) => {
-            const pkg = PRICING.find((p) => p.slug === r.package_slug);
-            const w1 = WORKSHOPS.find((w) => w.slug === r.workshop_round_1);
-            const w2 = WORKSHOPS.find((w) => w.slug === r.workshop_round_2);
             return (
               <article key={r.id} className="bg-surface-container-lowest rounded-2xl p-6 editorial-shadow">
                 <div className="flex items-start justify-between flex-wrap gap-4 mb-4">
                   <div>
                     <p className="text-xs uppercase tracking-widest text-on-surface-variant">Buchung · {r.event_slug}</p>
-                    <p className="font-bold text-xl mt-1">{pkg?.name ?? r.package_slug}</p>
+                    <p className="font-bold text-xl mt-1">{roomLabel(r.room_type, r.room_variant)}</p>
                   </div>
                   <span className="inline-flex items-center gap-1.5 bg-primary/10 text-primary px-3 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider">
                     {r.status}
@@ -62,12 +58,12 @@ export default async function PortalBuchung() {
                     <dd>{r.email}</dd>
                   </div>
                   <div>
-                    <dt className="text-xs uppercase tracking-widest text-on-surface-variant mb-1">Workshop I</dt>
-                    <dd>{w1?.title ?? "— noch offen —"}</dd>
+                    <dt className="text-xs uppercase tracking-widest text-on-surface-variant mb-1">Zahlstatus</dt>
+                    <dd>{r.payment_status ?? "not_requested"}</dd>
                   </div>
                   <div>
-                    <dt className="text-xs uppercase tracking-widest text-on-surface-variant mb-1">Workshop II</dt>
-                    <dd>{w2?.title ?? "— noch offen —"}</dd>
+                    <dt className="text-xs uppercase tracking-widest text-on-surface-variant mb-1">Zimmerpartnerin / Gruppe</dt>
+                    <dd>{roomDetails(r)}</dd>
                   </div>
                   {r.dietary_notes && (
                     <div className="sm:col-span-2">
@@ -78,8 +74,13 @@ export default async function PortalBuchung() {
                 </dl>
 
                 <p className="mt-5 text-xs text-on-surface-variant italic">
-                  Änderungen sind möglich — schreib uns dafür bitte kurz per Mail.
+                  Workshops werden nicht vorab gebucht. Änderungen an Zimmer- oder Kontaktdaten bitte per Mail anfragen.
                 </p>
+                {["payment_requested", "payment_failed"].includes(r.status) && (
+                  <Link href={`/zahlung?id=${r.id}`} className="mt-5 inline-flex items-center gap-2 bg-primary text-on-primary px-5 py-3 rounded-full font-semibold">
+                    Zur Zahlung <MaterialIcon name="arrow_forward" size={16} />
+                  </Link>
+                )}
               </article>
             );
           })}
@@ -87,4 +88,19 @@ export default async function PortalBuchung() {
       )}
     </>
   );
+}
+
+function roomLabel(roomType: string, roomVariant?: string | null) {
+  if (roomType === "single") return "Einzelzimmer";
+  if (roomType === "double_known") return "Doppelzimmer mit bekannter Person";
+  if (roomType === "double_unknown") return "Doppelzimmer mit unbekannter Person";
+  if (roomType === "multi") return `Familienzimmer für ${roomVariant === "4" ? "4" : "3"} Personen`;
+  return roomType;
+}
+
+function roomDetails(r: { roommate_name?: string | null; matching_code?: string | null; group_members?: string[] | null }) {
+  if (r.roommate_name) return r.roommate_name;
+  if (r.matching_code) return `Code: ${r.matching_code}`;
+  if (Array.isArray(r.group_members) && r.group_members.length > 0) return r.group_members.join(", ");
+  return "—";
 }

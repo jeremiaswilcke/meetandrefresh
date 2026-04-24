@@ -1,6 +1,6 @@
+import Image from "next/image";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { MaterialIcon } from "@/components/material-icon";
 import { GALLERY_PHOTOS } from "@/data/event";
 
 export const metadata = { title: "Galerie" };
@@ -27,9 +27,7 @@ export default function Galerie() {
                 i === 0 ? "col-span-2 row-span-2 aspect-square md:aspect-[4/3]" : "aspect-square"
               }`}
             >
-              <div className="absolute inset-0 flex items-center justify-center">
-                <MaterialIcon name="image" size={i === 0 ? 80 : 40} className="text-primary/30" />
-              </div>
+              <Image src={p.src} alt={p.alt} fill sizes="(min-width: 768px) 33vw, 50vw" className="object-cover" />
               <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/40 to-transparent">
                 <p className="text-white text-xs font-medium">{p.alt}</p>
               </div>
@@ -37,9 +35,7 @@ export default function Galerie() {
           ))}
         </div>
 
-        <p className="mt-8 text-xs text-on-surface-variant italic">
-          Bilder-Platzhalter — echte Fotos folgen nach der Konferenz 2026.
-        </p>
+        <p className="mt-8 text-xs text-on-surface-variant italic">Stockbilder als atmosphärische Vorschau.</p>
       </main>
       <SiteFooter />
     </>

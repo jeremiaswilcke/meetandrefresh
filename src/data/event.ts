@@ -16,9 +16,10 @@ export const EVENT = {
     display: "18.–20. September 2026",
   },
   location: {
-    name: "Christliches Gästehaus Sonnenhof",
-    address: "Bergstraße 12, 78054 Villingen-Schwenningen",
-    shortName: "Sonnenhof, Schwarzwald",
+    country: "Österreich",
+    name: "Campus Horn",
+    address: "Canisiusgasse 1, 3580 Horn, Österreich",
+    shortName: "Campus Horn, Österreich",
   },
   attendance: {
     expected: 120,
@@ -47,7 +48,7 @@ export const SPEAKERS: Speaker[] = [
     slug: "hanna-koenig",
     name: "Hanna König",
     role: "Lobpreisleitung",
-    bio: "Hanna ist Musikerin und gestaltet seit vielen Jahren Gottesdienste und Konferenzen. Sie lebt mit ihrer Familie in Freiburg.",
+    bio: "Hanna ist Musikerin und gestaltet seit vielen Jahren Gottesdienste und Konferenzen.",
     photo: null,
   },
   {
@@ -179,29 +180,39 @@ export const PRICING: PricingTier[] = [
     featured: true,
   },
   {
-    slug: "tagesgast",
-    name: "Tagesgast",
-    price: 65,
-    includes: ["Teilnahme an einem Konferenztag", "Mittag- und Abendessen", "Alle Vorträge und Workshops dieses Tages"],
+    slug: "familienzimmer-3",
+    name: "Familienzimmer 3 Personen",
+    price: 675,
+    includes: ["3er-Zimmer als Gruppe", "Vollverpflegung für 3 Personen", "Alle Vorträge und Workshops", "Sammelzahlung durch eine Buchende"],
+  },
+  {
+    slug: "familienzimmer-4",
+    name: "Familienzimmer 4 Personen",
+    price: 900,
+    includes: ["4er-Zimmer als Gruppe", "Vollverpflegung für 4 Personen", "Alle Vorträge und Workshops", "Sammelzahlung durch eine Buchende"],
   },
 ];
 
 export const GALLERY_PHOTOS = [
-  { src: "/gallery/placeholder-1.jpg", alt: "Blick über den Tagungsort" },
-  { src: "/gallery/placeholder-2.jpg", alt: "Morgenlob" },
-  { src: "/gallery/placeholder-3.jpg", alt: "Begegnungs-Café" },
-  { src: "/gallery/placeholder-4.jpg", alt: "Lobpreis-Abend" },
-  { src: "/gallery/placeholder-5.jpg", alt: "Workshop-Runde" },
-  { src: "/gallery/placeholder-6.jpg", alt: "Abendessen" },
+  { src: "/stock/retreat-women-photo.png", alt: "Helle Seminaratmosphäre mit Frauen" },
+  { src: "/stock/campus-horn-photo.png", alt: "Campus-Atmosphäre und Außenbereich" },
+  { src: "/stock/worship-photo.png", alt: "Lobpreis und geistliche Gemeinschaft" },
+  { src: "/photos/audience-clapping.jpg", alt: "Teilnehmerinnen applaudieren nach einer Session" },
+  { src: "/photos/community-highfive.jpg", alt: "Gemeinschaft und Freude bei einer Veranstaltung" },
+  { src: "/photos/happy-speaker.jpg", alt: "Referentin spricht zu Teilnehmerinnen" },
+  { src: "/photos/speaker-stage.jpg", alt: "Sprecherin auf der Bühne" },
+  { src: "/photos/community-heart-hands.jpg", alt: "Frauen formen ein Herz mit den Händen" },
+  { src: "/photos/speaker-microphone-grey.jpg", alt: "Moderatorin mit Mikrofon" },
 ] as const;
 
 export const CONTACT = {
   email: "hallo@meetandrefresh.de",
   phone: "+49 (0) 176 0000 0000",
+  whatsapp: "+49 176 0000 0000",
   instagram: "@meetandrefresh",
   operator: {
     name: "Meet & Refresh — Veranstalterin",
     street: "Musterstraße 1",
-    city: "79098 Freiburg",
+    city: "3580 Horn, Österreich",
   },
 };

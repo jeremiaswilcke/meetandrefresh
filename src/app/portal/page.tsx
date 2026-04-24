@@ -9,7 +9,7 @@ export default async function PortalDashboard() {
 
   const { data: registration } = await supabase
     .from("registrations")
-    .select("id, full_name, package_slug, workshop_round_1, workshop_round_2, status, amount_cents")
+    .select("id, full_name, room_type, room_variant, status, payment_status, amount_cents")
     .eq("email", user?.email ?? "")
     .order("created_at", { ascending: false })
     .limit(1)
@@ -34,7 +34,7 @@ export default async function PortalDashboard() {
           <div className="flex items-start justify-between gap-4 flex-wrap">
             <div>
               <p className="text-xs uppercase tracking-widest opacity-80 mb-1">Deine Buchung</p>
-              <p className="text-2xl font-bold capitalize">{registration.package_slug.replace("-", " ")}</p>
+              <p className="text-2xl font-bold">{roomLabel(registration.room_type, registration.room_variant)}</p>
               <p className="opacity-90 text-sm mt-1">
                 {((registration.amount_cents ?? 0) / 100).toLocaleString("de-DE", { style: "currency", currency: "EUR" })}
               </p>
@@ -94,8 +94,8 @@ export default async function PortalDashboard() {
         </Link>
         <Link href="/portal/buchung" className="bg-surface-container-lowest rounded-2xl p-6 editorial-shadow hover:bg-surface-container-low transition-colors">
           <MaterialIcon name="edit_note" size={28} className="text-primary mb-3" filled />
-          <p className="font-semibold">Buchung bearbeiten</p>
-          <p className="text-sm text-on-surface-variant mt-1">Workshops, Allergien, Kontakt</p>
+          <p className="font-semibold">Persönlicher Bereich</p>
+          <p className="text-sm text-on-surface-variant mt-1">Zimmer, Zahlung, Hinweise</p>
         </Link>
       </section>
     </>
@@ -106,6 +106,11 @@ function StatusBadge({ status }: { status: string }) {
   const label: Record<string, string> = {
     pending: "Ausstehend",
     confirmed: "Bestätigt",
+    pending_match: "Wartet auf Partnerin",
+    waiting_for_roommate: "Wartet auf Matching",
+    matched: "Gematcht",
+    payment_requested: "Zahlung offen",
+    payment_failed: "Zahlung fehlgeschlagen",
     paid: "Bezahlt",
     cancelled: "Storniert",
   };
@@ -115,4 +120,12 @@ function StatusBadge({ status }: { status: string }) {
       {label[status] ?? status}
     </span>
   );
+}
+
+function roomLabel(roomType: string, roomVariant?: string | null) {
+  if (roomType === "single") return "Einzelzimmer";
+  if (roomType === "double_known") return "Doppelzimmer mit bekannter Person";
+  if (roomType === "double_unknown") return "Doppelzimmer mit unbekannter Person";
+  if (roomType === "multi") return `Familienzimmer für ${roomVariant === "4" ? "4" : "3"} Personen`;
+  return roomType;
 }

@@ -17,10 +17,10 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 backdrop-blur-xl bg-background/80 border-b border-outline-variant/30">
-      <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <header className="sticky top-0 z-40 backdrop-blur-xl bg-background/86 border-b border-outline-variant/40">
+      <div className="max-w-6xl mx-auto px-6 py-3 flex items-center justify-between">
         <Link href="/" className="flex items-center" aria-label="Meet & Refresh — Startseite">
-          <Logo className="text-2xl" />
+          <Logo />
         </Link>
 
         <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-on-surface-variant">
@@ -44,7 +44,7 @@ export function SiteHeader() {
           </Link>
           <Link
             href="/buchung"
-            className="inline-flex items-center gap-2 bg-primary text-on-primary px-5 py-2.5 rounded-full text-sm font-semibold hover:bg-primary-container transition-colors"
+            className="inline-flex items-center gap-2 bg-primary text-on-primary px-5 py-2.5 rounded-xl text-sm font-extrabold hover:bg-primary-container transition-colors"
           >
             Jetzt anmelden
             <MaterialIcon name="arrow_forward" size={16} />
@@ -52,7 +52,7 @@ export function SiteHeader() {
         </div>
 
         <button
-          className="md:hidden w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center"
+          className="md:hidden w-10 h-10 rounded-xl bg-secondary text-on-secondary flex items-center justify-center"
           onClick={() => setOpen((v) => !v)}
           aria-label="Menü öffnen"
           aria-expanded={open}
@@ -85,7 +85,7 @@ export function SiteHeader() {
             <Link
               href="/buchung"
               onClick={() => setOpen(false)}
-              className="mt-2 inline-flex items-center justify-center gap-2 bg-primary text-on-primary px-5 py-3 rounded-full text-sm font-semibold"
+              className="mt-2 inline-flex items-center justify-center gap-2 bg-primary text-on-primary px-5 py-3 rounded-xl text-sm font-extrabold"
             >
               Jetzt anmelden
               <MaterialIcon name="arrow_forward" size={16} />

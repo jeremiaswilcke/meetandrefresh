@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { MaterialIcon } from "@/components/material-icon";
@@ -48,7 +49,7 @@ export default function Home() {
 
               <figure className="mt-12 border-l-2 border-primary pl-5 max-w-md">
                 <blockquote className="italic text-on-surface text-base leading-relaxed">
-                  „{EVENT.heroVerse.text}"
+                  „{EVENT.heroVerse.text}”
                 </blockquote>
                 <figcaption className="mt-2 text-xs uppercase tracking-widest text-on-surface-variant">
                   {EVENT.heroVerse.reference}
@@ -58,13 +59,18 @@ export default function Home() {
 
             <div className="md:col-span-5 relative">
               <div className="relative aspect-[3/4] rounded-[2rem] overflow-hidden bg-gradient-to-br from-primary via-primary-container to-primary-fixed-dim editorial-shadow">
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <MaterialIcon name="forest" size={120} className="text-on-primary/20" filled />
-                </div>
+                <Image
+                  src="/photos/audience-clapping.jpg"
+                  alt="Frauenfreizeit mit warmer Meet & Refresh Atmosphäre"
+                  fill
+                  priority
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
                 <div className="absolute bottom-0 left-0 right-0 p-6 text-on-primary">
                   <p className="text-xs uppercase tracking-widest opacity-70">Erwartet</p>
                   <p className="text-4xl font-bold mt-1">{EVENT.attendance.expected}+ Frauen</p>
-                  <p className="text-sm opacity-80 mt-1">aus ganz Deutschland</p>
+                  <p className="text-sm opacity-80 mt-1">in Österreich</p>
                 </div>
               </div>
 
@@ -112,6 +118,25 @@ export default function Home() {
           </div>
         </section>
 
+        <section className="max-w-6xl mx-auto px-6 py-12">
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="relative h-80 overflow-hidden rounded-[2rem] editorial-shadow md:h-[420px]">
+              <Image src="/photos/happy-speaker.jpg" alt="Referentin bei Meet & Refresh" fill className="object-cover" />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/45 to-transparent p-6 text-white">
+                <p className="text-xs uppercase tracking-widest opacity-80">Impulse</p>
+                <p className="mt-1 text-2xl font-bold">Klare Lehre, echte Ermutigung</p>
+              </div>
+            </div>
+            <div className="relative h-80 overflow-hidden rounded-[2rem] editorial-shadow md:h-[420px]">
+              <Image src="/photos/community-heart-hands.jpg" alt="Begegnung und Gemeinschaft bei Meet & Refresh" fill className="object-cover" />
+              <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/45 to-transparent p-6 text-white">
+                <p className="text-xs uppercase tracking-widest opacity-80">Atmosphäre</p>
+                <p className="mt-1 text-2xl font-bold">Begegnung, Lobpreis, Austausch</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         {/* === Programm-Preview === */}
         <section className="max-w-6xl mx-auto px-6 py-20">
           <div className="flex items-end justify-between mb-8 flex-wrap gap-4">
@@ -124,7 +149,7 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {PROGRAM.map((day) => (
               <div key={day.label} className="bg-surface-container-lowest rounded-2xl p-6 editorial-shadow">
                 <p className="text-xs uppercase tracking-widest font-semibold text-on-surface-variant">{day.label}</p>
@@ -262,8 +287,14 @@ export default function Home() {
         {/* === CTA === */}
         <section className="max-w-6xl mx-auto px-6 py-20">
           <div className="relative rounded-[2rem] overflow-hidden bg-gradient-to-br from-primary via-primary-container to-primary-fixed-dim p-10 md:p-16 editorial-shadow">
-            <div className="absolute inset-0 opacity-10">
-              <MaterialIcon name="spa" size={400} className="absolute -right-10 -bottom-10 text-on-primary" filled />
+            <div className="absolute inset-0 opacity-10" aria-hidden>
+              <Image
+                src="/meetand-logo.png"
+                alt=""
+                width={520}
+                height={608}
+                className="absolute -right-16 -bottom-24 h-[34rem] w-auto grayscale brightness-0 invert"
+              />
             </div>
             <div className="relative max-w-2xl">
               <p className="text-xs uppercase tracking-widest font-semibold text-on-primary/80 mb-4">

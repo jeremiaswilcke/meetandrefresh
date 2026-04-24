@@ -4,7 +4,6 @@ import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { MaterialIcon } from "@/components/material-icon";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
-import { PRICING } from "@/data/event";
 import { confirmDemoPayment } from "./actions";
 
 export const metadata = { title: "Zahlung" };
@@ -20,14 +19,14 @@ export default async function ZahlungPage({
   const supabase = await createServerSupabaseClient();
   const { data: reg } = await supabase
     .from("registrations")
-    .select("id, full_name, email, package_slug, amount_cents, status")
+    .select("id, full_name, email, room_type, room_variant, amount_cents, status")
     .eq("id", id)
     .maybeSingle();
 
   if (!reg) notFound();
 
-  const pkg = PRICING.find((p) => p.slug === reg.package_slug);
   const alreadyPaid = reg.status === "paid" || reg.status === "confirmed";
+  const payable = reg.status === "payment_requested" || reg.status === "payment_failed";
 
   return (
     <>
@@ -47,7 +46,7 @@ export default async function ZahlungPage({
             </div>
             <div>
               <p className="text-xs uppercase tracking-widest text-on-surface-variant mb-1">Paket</p>
-              <p className="font-semibold text-lg">{pkg?.name}</p>
+              <p className="font-semibold text-lg">{roomLabel(reg.room_type, reg.room_variant)}</p>
               <p className="text-sm text-on-surface-variant">
                 {((reg.amount_cents ?? 0) / 100).toLocaleString("de-DE", { style: "currency", currency: "EUR" })}
               </p>
@@ -64,7 +63,7 @@ export default async function ZahlungPage({
                 </p>
               </div>
             </div>
-          ) : (
+          ) : payable ? (
             <>
               <div className="rounded-xl bg-secondary-fixed/30 border border-secondary/30 p-5 flex items-start gap-3 mb-6">
                 <MaterialIcon name="info" size={24} className="text-primary" filled />
@@ -87,6 +86,16 @@ export default async function ZahlungPage({
                 </button>
               </form>
             </>
+          ) : (
+            <div className="rounded-xl bg-secondary-fixed/30 border border-secondary/30 p-5 flex items-start gap-3">
+              <MaterialIcon name="hourglass_empty" size={24} className="text-primary" filled />
+              <div>
+                <p className="font-semibold">Noch nicht zahlungspflichtig</p>
+                <p className="text-sm text-on-surface-variant mt-1">
+                  Diese Buchung wartet noch auf das Zimmer-Matching. Danach wird die Zahlung freigeschaltet.
+                </p>
+              </div>
+            </div>
           )}
         </div>
 
@@ -99,4 +108,12 @@ export default async function ZahlungPage({
       <SiteFooter />
     </>
   );
+}
+
+function roomLabel(roomType: string, roomVariant?: string | null) {
+  if (roomType === "single") return "Einzelzimmer";
+  if (roomType === "double_known") return "Doppelzimmer mit bekannter Person";
+  if (roomType === "double_unknown") return "Doppelzimmer mit unbekannter Person";
+  if (roomType === "multi") return `Familienzimmer für ${roomVariant === "4" ? "4" : "3"} Personen`;
+  return roomType;
 }

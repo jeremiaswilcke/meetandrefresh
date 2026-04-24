@@ -1,6 +1,6 @@
+import Image from "next/image";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { MaterialIcon } from "@/components/material-icon";
 import { SPEAKERS } from "@/data/event";
 
 export const metadata = { title: "Referentinnen" };
@@ -25,8 +25,15 @@ export default function Referentinnen() {
               key={s.slug}
               className={`grid md:grid-cols-12 gap-6 items-center ${i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""}`}
             >
-              <div className="md:col-span-4 aspect-[4/5] bg-gradient-to-br from-primary-fixed to-primary-fixed-dim rounded-[2rem] flex items-center justify-center editorial-shadow">
-                <MaterialIcon name="person" size={120} className="text-primary/40" filled />
+              <div className="relative md:col-span-4 aspect-[4/5] overflow-hidden rounded-[2rem] bg-gradient-to-br from-primary-fixed to-secondary-container editorial-shadow">
+                <Image
+                  src={speakerImages[i % speakerImages.length]}
+                  alt={`Referentin ${s.name}`}
+                  fill
+                  sizes="(min-width: 768px) 33vw, 100vw"
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
               </div>
               <div className="md:col-span-8">
                 <h2 className="text-3xl md:text-4xl font-bold">{s.name}</h2>
@@ -41,3 +48,9 @@ export default function Referentinnen() {
     </>
   );
 }
+
+const speakerImages = [
+  "/photos/speaker-microphone-grey.jpg",
+  "/photos/happy-speaker.jpg",
+  "/photos/speaker-stage.jpg",
+];

@@ -30,7 +30,7 @@ export default function Datenschutz() {
           <section>
             <h2 className="text-on-surface font-semibold text-xl mb-2">Welche Daten wir erheben</h2>
             <ul className="list-disc pl-6 space-y-1">
-              <li><strong>Anmeldung:</strong> Name, E-Mail-Adresse, Zimmer- und Workshop-Wahl, ggf. Allergien oder Hinweise.</li>
+              <li><strong>Anmeldung:</strong> Name, E-Mail-Adresse, Zimmerwahl, ggf. Zimmerpartnerin, Gruppennamen, Allergien oder Hinweise.</li>
               <li><strong>Teilnehmerbereich:</strong> E-Mail und Passwort (gehasht) für den Login.</li>
               <li><strong>Server-Logs:</strong> Unsere Hosting-Provider (Vercel, Supabase) protokollieren technisch notwendige Zugriffsdaten.</li>
             </ul>

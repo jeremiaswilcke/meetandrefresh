@@ -10,7 +10,7 @@ export async function confirmDemoPayment(formData: FormData) {
   const supabase = await createServerSupabaseClient();
   await supabase
     .from("registrations")
-    .update({ status: "paid" })
+    .update({ status: "paid", payment_status: "paid" })
     .eq("id", id);
 
   redirect(`/zahlung?id=${id}`);

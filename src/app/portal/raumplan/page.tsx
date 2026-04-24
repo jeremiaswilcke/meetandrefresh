@@ -55,7 +55,7 @@ export default function PortalRaumplan() {
       <section className="mt-10 rounded-2xl bg-gradient-to-br from-primary-fixed/30 to-secondary-fixed/30 p-6">
         <h3 className="font-semibold mb-2">Anfahrt & Parken</h3>
         <p className="text-sm text-on-surface-variant leading-relaxed">
-          {EVENT.location.address}. Parkplätze am Haus sind begrenzt — Fahrgemeinschaften sind willkommen. Detaillierte Anfahrtsbeschreibung bekommst du per Mail.
+          {EVENT.location.address}. Parkplätze am Campus sind begrenzt — Fahrgemeinschaften sind willkommen. Detaillierte Anfahrtsbeschreibung bekommst du per Mail.
         </p>
       </section>
     </>
